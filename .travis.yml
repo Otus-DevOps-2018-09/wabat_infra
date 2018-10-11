@@ -6,5 +6,5 @@ before_install:
   bash
 notification:
   slack:
-    rooms: 
-      - devops-team-otus:zUuIZJowRgjQMzATf2IKeEtU#mariia_hachaturyan
+    rooms:
+      - devops-team-otus:fJEL7UncDhT9whoDLtNdf6Yh#mariia_hachaturyan
