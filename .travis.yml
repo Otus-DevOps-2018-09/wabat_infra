@@ -7,4 +7,4 @@ before_install:
 notification:
   slack:
     rooms:
-      - devops-team-otus:fJEL7UncDhT9whoDLtNdf6Yh#mariia_hachaturyan
+      - devops-team-otus:fJEL7UncDhT9whoDLtNdf6Yh#test44
