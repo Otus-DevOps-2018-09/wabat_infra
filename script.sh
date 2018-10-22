@@ -25,6 +25,6 @@ cd reddit && bundle install
 puma -d
 
 # get port (tcp://0.0.0.0:9292)  
-ps aux | grep puma 
+ps aux | grep puma
 
 #puma-server tag vpc
