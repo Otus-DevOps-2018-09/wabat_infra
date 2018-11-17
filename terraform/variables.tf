@@ -10,3 +10,8 @@ variable region {
 variable zone {
   default = "europe-west1-b"
 }
+
+variable public_key_path {
+  description = "public_key_path"
+  default     = "~/.ssh/appuser.pub"
+}
