@@ -1,3 +1,4 @@
+## Terraform-1
 1. Переменная приватного ключа 
 ```
 ${file(var.private_key_path)}
@@ -10,7 +11,8 @@ ${var.zone}
 ```
 terraform fmt
 ```
-* Добавить несколько ключей вручную можно такой инструкцией
+* 
+Добавить несколько ключей можно такой инструкцией
 ```
 resource "google_compute_project_metadata_item" "add" {
   key   = "ssh-keys"
