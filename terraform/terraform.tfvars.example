@@ -3,5 +3,5 @@ region = "region1"
 zone = "zone1"
 public_key_path = "~/.ssh/appuser.pub"
 private_key_path = "~/.ssh/appuser"
-app_disk_image = "reddit-app-base"
-app_db_image = "reddit-db-base"
+disk_image = "reddit-base"
+instance_count = 1
