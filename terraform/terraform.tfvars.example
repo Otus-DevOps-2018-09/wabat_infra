@@ -1,7 +1,4 @@
-project = "your-project-id"
-region = "region1"
-zone = "zone1"
+project = "fred_project"
 public_key_path = "~/.ssh/appuser.pub"
 private_key_path = "~/.ssh/appuser"
 disk_image = "reddit-base"
-instance_count = 1
