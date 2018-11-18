@@ -1,5 +1,5 @@
 {
-      "project_id": "google-cloud-project-id",
+      "project_id": "id",
       "source_image_family": "ubuntu-1604-lts",
       "image_description": "Image description",
       "disk_size": "10",
@@ -8,3 +8,4 @@
       "network": "default",
       "tags": "array,of,strings"
     }
+    
