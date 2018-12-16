@@ -1,6 +1,6 @@
 variable project {
   description = "project"
-  default     = "shaped-totem-219816"
+  default     = ""
 }
 
 variable region {
