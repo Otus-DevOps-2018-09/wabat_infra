@@ -3,3 +3,6 @@ variables.json
 *.swp
 *.json
 packer/variables.json
+ansible/gce.ini
+terraform_/*
+*.tfstate
