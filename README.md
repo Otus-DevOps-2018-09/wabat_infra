@@ -73,13 +73,4 @@ output storage-bucket_url {
 - yml
 - json
 
-Спомощью этого кода можно получить валидный json inventory из inventory-файла в форматe yaml,
-```
-import os, yaml 
 
-with open ('inventory.yml', 'r') as inv:
-    f = inv.read ()
-    
-to_json = yaml.safe_load (f)
-print (to_json)
-```
