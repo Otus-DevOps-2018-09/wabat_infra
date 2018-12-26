@@ -1,1 +1,7 @@
-packer/variables.json
+variables.json
+*.retry
+*.swp
+*.json
+ansible/gce.ini
+terraform_/*
+*.tfstate
