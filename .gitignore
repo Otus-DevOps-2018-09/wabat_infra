@@ -2,7 +2,6 @@ variables.json
 *.retry
 *.swp
 *.json
-packer/variables.json
 ansible/gce.ini
 terraform_/*
 *.tfstate
