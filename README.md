@@ -1,3 +1,5 @@
+## wabat_infra [![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/wabat_infra.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2018-09/wabat_infra)
+
 ***
 ### Terraform-1
 
@@ -92,7 +94,7 @@ output storage-bucket_url {
 - yml
 - json
 
-- Спомощью [yaml-to-json-converter.py]() можно получить валидный json inventory из inventory-файла в форматe yaml
+- Спомощью [yaml-to-json-converter.py](https://github.com/Otus-DevOps-2018-09/wabat_infra/blob/master/ansible/yaml-to-json-converter.py) можно получить валидный json inventory из inventory-файла в форматe yaml
 </details>
 
 ***
@@ -122,6 +124,7 @@ ansible-playbook sites.yml --ckeck
 <details>
 <summary>Работа с динамическими инвентарными списками</summary>
 Пример вызова плейбука с динамическим инвентарным списком
+
 ```
 ansible-playbook -i gce.py site.yml --check
 ```
@@ -144,3 +147,68 @@ gce_project_id = project_id
 ```
 
 </details>
+
+
+***
+### Ansible-3
+
+<details>
+<summary>role structure</summary>
+
+```
+roles/
+    common/               # this hierarchy represents a "role"
+        tasks/            #
+            main.yml      #  <-- tasks file can include smaller files if warranted
+        handlers/         #
+            main.yml      #  <-- handlers file
+        meta/             #
+        templates/        #  <-- files for use with the template resource
+            ntp.conf.j2   #  <------- templates end in .j2
+        files/            #
+            bar.txt       #  <-- files for use with the copy resource
+            foo.sh        #  <-- script files for use with the script resource
+        vars/             #
+            main.yml      #  <-- variables associated with this role
+        defaults/         #
+            main.yml      #  <-- default lower priority variables for this role
+            main.yml      #  <-- role dependencies
+        library/          # roles can also include custom modules
+        module_utils/     # roles can also include custom module_utils
+        lookup_plugins/   # or other types of plugins, like lookup in this case
+
+    webtier/              # same kind of structure as "common" was above, done for the webtier role
+    monitoring/           # ""
+    fooapp/ 
+```
+
+</details>
+
+<details>
+<summary>enviroments</summary>
+
+This layout gives you more flexibility for larger environments, as well as a total separation of inventory variables between different environments. The downside is that it is harder to maintain, because there are more files.
+
+Using debug for environment variables checkout in task list for current enviroment
+
+```
+# tasks file for app
+- name: Show info about the env this host belongs to
+  debug:
+    msg: "This host is in {{ env }} environment!!!"
+```
+
+</details>
+
+
+Установка ролей через зависимости.
+Файл ansible/enviroments/prod/requirements.yml
+
+```
+- src: jdauphant.nginx
+  version: v2.21.1
+```
+
+Настройка тестов для проверки и валидации конфигураций packer и terraform 
+файл [.travis.yml] (https://github.com/Otus-DevOps-2018-09/wabat_infra/blob/master/.travis.yml)
+

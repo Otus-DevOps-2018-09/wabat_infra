@@ -18,7 +18,6 @@ variable public_key_path {
   default     = "~/.ssh/appuser.pub"
 }
 
-
 variable disk_image {
   description = "image"
   default     = "reddit-base"
@@ -26,12 +25,12 @@ variable disk_image {
 
 variable app_disk_image {
   description = "appimage"
-  default     = "app-reddit-1542528383"
+  default     = "app-reddit"
 }
 
 variable db_disk_image {
   description = "appimage"
-  default     = "db-reddit-1542528658"
+  default     = "db-reddit"
 }
 
 variable zone {
