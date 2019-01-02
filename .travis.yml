@@ -1,9 +1,58 @@
-
+dist: trusty
 sudo: required
 language: bash
+
+# add tests
+# install terraform
 before_install:
-- curl https://raw.githubusercontent.com/express42/otus-homeworks/2018-09/run.sh | bash
+  - export ROOT_PROJECT=`pwd`
+  - curl https://raw.githubusercontent.com/express42/otus-homeworks/2018-09/run.sh |  bash
+  - sudo apt-get -y install tree
+
+  - curl -fSL "https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip" -o terraform.zip
+  - sudo unzip terraform.zip -d /opt/terraform
+  - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+  - rm -f terraform.zip
+  - terraform -v
+
+  - curl -fSL "https://releases.hashicorp.com/packer/1.3.3/packer_1.3.3_linux_amd64.zip" -o packer.zip
+  - sudo unzip packer.zip -d /opt/packer
+  - sudo rm -f packer.zip
+  - sudo ln -s /opt/packer/packer /usr/bin/packer
+  - packer -v
+
+  - curl -fSL "https://github.com/wata727/tflint/releases/download/v0.7.3/tflint_linux_amd64.zip" -o tflint.zip
+  - sudo unzip tflint.zip -d /opt/tflint
+  - sudo rm -f tflint.zip
+  - sudo ln -s /opt/tflint/tflint /usr/local/bin/
+  - tflint -v
+
+  - sudo pip install ansible-lint
+  - ansible-lint --version
+
+  - cd $ROOT_PROJECT
+script:
+  - packer validate -var-file=packer/variables.json.example packer/app.json
+  - packer validate -var-file=packer/variables.json.example packer/db.json
+  - packer validate -var-file=packer/variables.json.example packer/immutable.json
+  - packer validate -var-file=packer/variables.json.example packer/ubuntu16.json
+  - cd $ROOT_PROJECT/terraform
+  - for i in $(find . -regex '.*/*/[^/]*.example'); do mv $(dirname $i)/variables.tf.example $(dirname $i)/variables.tf; done
+  - tree
+  - cd $ROOT_PROJECT/terraform/stage
+  - terraform init
+  - terraform validate -check-variables=false
+  - tflint
+
+  - cd $ROOT_PROJECT/terraform/prod
+  - terraform init
+  - terraform validate -check-variables=false
+  - tflint
+
+  - cd $ROOT_PROJECT/ansible
+  - ansible-lint -x405 --exclude=roles/jdauphant.nginx playbooks/*.yml
+
 notifications:
-  slack:
-    rooms:
-      secure: JXNGwkJajJfsR3pyG3HndqRno8DNw81IIFM4ru6GRZ6LyrXs+zH3rhhJm2cjCr/7fkWB/NUBQK7ezofflAMwZKAnRTFoInFv/XMXOuWyecjxSM1NXARdC0AFuCbPomPStlQvA+QzALXIpsXefJ4nnbvcvm5AHN98CZozTUgNNEhWYpaG4ThgUO12pwwe0AV6BSWnhab9AtnP6D97FxXtkrbapAQwrHry6T65J6rJ+Tl+patsiiiYE+uppU2xbON2EYT5RTTy+b4PFuj6e6W/YP0UqKUzKWumvRpjFHyFbE50DYhw/hztTaZ6+vkj2DczdGqxd8ga2lzf+1dLkd5H8kj7sAxaePtfVxpXZn34Wb2Ori5PkYgb9lj3eQGRgPFz/pb0brkAxY20+pcvM/NuF+cgtA+A6kLX+X8dx3dSq2eweFA6XIkY7XGhdza9mQULK2vLMowdTT/0kt651kC01Ci3DaYAD6SFwTh4sIMZuOLgXSi7lAvZDqAhbYa9FsHGttLgBi/Y5JTeepo/NJoxf2tgQNojMy+zdRvu3S+nLyCL+YQewfpJhsbOcGDwVBXKXrYJjUhKlLCjcbSDF//Eocu+1RFT7jpqdjntORJbf0gz58jWK/tD4lnSzczYy/vwA38D36BDCnIDB/MT+/DZ3m7XwHMRoswpjf3tTNalvfo=
+slack:
+  rooms:
+    secure: JXNGwkJajJfsR3pyG3HndqRno8DNw81IIFM4ru6GRZ6LyrXs+zH3rhhJm2cjCr/7fkWB/NUBQK7ezofflAMwZKAnRTFoInFv/XMXOuWyecjxSM1NXARdC0AFuCbPomPStlQvA+QzALXIpsXefJ4nnbvcvm5AHN98CZozTUgNNEhWYpaG4ThgUO12pwwe0AV6BSWnhab9AtnP6D97FxXtkrbapAQwrHry6T65J6rJ+Tl+patsiiiYE+uppU2xbON2EYT5RTTy+b4PFuj6e6W/YP0UqKUzKWumvRpjFHyFbE50DYhw/hztTaZ6+vkj2DczdGqxd8ga2lzf+1dLkd5H8kj7sAxaePtfVxpXZn34Wb2Ori5PkYgb9lj3eQGRgPFz/pb0brkAxY20+pcvM/NuF+cgtA+A6kLX+X8dx3dSq2eweFA6XIkY7XGhdza9mQULK2vLMowdTT/0kt651kC01Ci3DaYAD6SFwTh4sIMZuOLgXSi7lAvZDqAhbYa9FsHGttLgBi/Y5JTeepo/NJoxf2tgQNojMy+zdRvu3S+nLyCL+YQewfpJhsbOcGDwVBXKXrYJjUhKlLCjcbSDF//Eocu+1RFT7jpqdjntORJbf0gz58jWK/tD4lnSzczYy/vwA38D36BDCnIDB/MT+/DZ3m7XwHMRoswpjf3tTNalvfo=
