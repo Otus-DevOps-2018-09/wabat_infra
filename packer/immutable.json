@@ -29,11 +29,11 @@
     "provisioners": [
       {
         "type": "shell",
-        "script": "scripts/deploy_reddit.sh"
+        "script": "packer/scripts/deploy_reddit.sh"
       },
       {
         "type": "file",
-        "source": "files/puma.service",
+        "source": "packer/files/puma.service",
         "destination": "/tmp/puma.service"
       },
       {
@@ -45,7 +45,7 @@
       },
       {
         "type": "shell",
-        "script": "scripts/start_puma_service.sh",
+        "script": "packer/scripts/start_puma_service.sh",
         "execute_command": "sudo {{.Path}}"
       }
     ]
