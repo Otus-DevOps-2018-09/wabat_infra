@@ -1,4 +1,5 @@
-## wabat_infra [![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/wabat_infra.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2018-09/wabat_infra)
+## wabat_infra 
+[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/wabat_infra.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2018-09/wabat_infra)
 
 ***
 ### Terraform-1
