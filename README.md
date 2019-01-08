@@ -212,3 +212,36 @@ Using debug for environment variables checkout in task list for current envirome
 Настройка тестов для проверки и валидации конфигураций packer и terraform 
 файл [.travis.yml] (https://github.com/Otus-DevOps-2018-09/wabat_infra/blob/master/.travis.yml)
 
+***
+### Ansible-4
+
+<details>
+<summary>Разработка ролей с Vagrant</summary>
+
+описание конфигурации находится в файле vagrant
+
+переопределение переменных секция ansible.extra_vars имеет высший приоритет
+
+импорт роли nginx отсуществляется через файл app.yml
+
+#### тестирование
+
+ansible/requirements.txt
+
+ansible>=2.4
+molecule>=2.6
+testinfra>=1.10
+python-vagrant>=0.5.15
+
+инициализация проекта molecule
+
+```
+molecule init scenario --scenario-name default -r db -d vagrant
+```
+
+сами тесты molecule/default/tests/test_default.py
+описание тестовой машины находится molecule/default/molecule.yml
+подключние к машине molecule login -h instance
+посмотреть описание к tesinfra модулям https://testinfra.readthedocs.io/en/latest/modules.html
+
+</details>

@@ -8,3 +8,11 @@ terraform_/*
 terraform.ay/*
 jdauphant.nginx
 variables.tf
+# Vagrant & molecule
+.vagrant/
+*.log
+*.pyc
+.molecule
+.cache
+.pytest_cache
+.notes
