@@ -3,14 +3,14 @@ variable project {
   default     = ""
 }
 
-variable db_disk_image {
+variable app_disk_image {
   description = "image"
-  default     = "db-reddit-1542528658"
+  default     = "app-reddit"
 }
 
 variable public_key_path {
   description = "public_key_path"
-  default     = "~/.ssh/appuser.pub"
+  default     = "~/.ssh/xxx.pub"
 }
 
 variable zone {

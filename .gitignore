@@ -5,3 +5,6 @@ variables.json
 ansible/gce.ini
 terraform_/*
 *.tfstate
+terraform.ay/*
+jdauphant.nginx
+variables.tf
