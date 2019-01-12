@@ -50,7 +50,7 @@ script:
   - tflint
 
   - cd $ROOT_PROJECT/ansible
-  - ansible-lint -x405 --exclude=roles/jdauphant.nginx playbooks/*.yml
+  - ansible-lint -x405 -x703 -x701 --exclude=roles/jdauphant.nginx playbooks/*.yml
 
 notifications:
 slack:
